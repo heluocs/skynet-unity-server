@@ -1,0 +1,62 @@
+local skynet = require "skynet"
+require "skynet.manager"
+local netpack = require "netpack"
+
+local CMD = {}
+local SOCKET = {}
+local agent = {}
+local gate
+
+function SOCKET.open(fd, addr)
+	skynet.error("New client from : " .. addr)
+	agent[fd] = skynet.newservice("agent")
+	skynet.call(agent[fd], "lua", "start", gate, fd, proto)
+end
+
+local function close_agnet(fd)
+	local a = agent[fd]
+	agent[fd] = nil
+	if a then
+		skynet.call(gate, "lua", "kick", fd)
+		skynet.send(a, "lua", "disconnect")
+	end
+end
+
+function SOCKET.close(fd)
+	print("socket close", fd)
+	close_agnet(fd)
+end
+
+function SOCKET.error(fd, msg)
+	print("socket error", fd, msg)
+	close_agnet(fd)
+end
+
+function SOCKET.data(fd, msg)
+end
+
+function CMD.start(conf)
+	skynet.call(gate, "lua", "open", conf)
+end
+
+function CMD.close(fd)
+	close_agnet(fd)
+end
+
+skynet.start(function()
+	print("---start watchdog---")
+	skynet.dispatch("lua", function(session, source, cmd, subcmd, ...)
+		print("---watchdog cmd ", cmd)
+		if cmd == "socket" then
+			print("---watchdog subcmd ", subcmd)
+			local f = SOCKET[subcmd]
+			f(...)
+			--socket api don't need return
+		else
+			local f = assert(CMD[cmd])
+			skynet.ret(skynet.pack(f(subcmd, ...)))
+		end
+	end)
+
+	gate = skynet.newservice("gate")
+end)

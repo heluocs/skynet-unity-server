@@ -1,0 +1,30 @@
+//MSG_ROLE_LOGIN_REQUEST_C2S
+message CMsgRoleLoginRequest
+{
+	required string nickname			= 1; 
+}
+
+message RoleInfo
+{
+	required int64 id					= 1; 
+	required string nickname 			= 2; 
+	required int32 level				= 3; 
+}
+
+//MSG_ROLE_LOGIN_RESPONSE_S2C
+message CMsgRoleLoginResponse
+{
+	repeated RoleInfo role 				= 1;
+}
+
+//MSG_ROLE_REGIST_REQUEST_C2S
+message CMsgRoleRegistRequest
+{
+	required string nickname			= 1; 
+}
+
+//MSG_ROLE_REGIST_RESPONSE_S2C
+message CMsgRoleRegistResponse
+{
+	required RoleInfo role 				= 1;	
+}
