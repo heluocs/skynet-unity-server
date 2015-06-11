@@ -3,7 +3,7 @@ require "skynet.manager"
 local netpack = require "netpack"
 local message = require "message"
 
-pack = require("pack.core")
+msgpack = require("msgpack.core")
 
 local CMD = {}
 local protobuf = {}
@@ -27,7 +27,7 @@ local function processRoleLoginRequest(msg)
 	tb.role = roles
 
 	local msgbody =  protobuf.encode("CMsgRoleLoginResponse", tb)
-	return pack.pack(message.MSG_ROLE_LOGIN_RESPONSE_S2C, msgbody)
+	return msgpack.pack(message.MSG_ROLE_LOGIN_RESPONSE_S2C, msgbody)
 end
 
 local function processRoleRegistRequest(msg)

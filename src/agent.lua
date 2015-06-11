@@ -3,7 +3,7 @@ require "skynet.manager"
 local netpack = require "netpack"
 local socket = require "socket"
 local message = require "message"
-pack = require "pack.core"
+msgpack = require "msgpack.core"
 
 local host
 
@@ -11,7 +11,7 @@ local CMD = {}
 local client_fd
 
 local function send_response(package)
-	data = pack.unpack(package)
+	data = msgpack.unpack(package)
 	print(" resp ok : ", data.msgno)
 	socket.write(client_fd, netpack.pack(package))
 end
@@ -24,7 +24,7 @@ skynet.register_protocol {
 	end,
 	dispatch = function(_, _, msg)
 		print("------------client dispatch------------")
-		data = pack.unpack(msg)
+		data = msgpack.unpack(msg)
 		module = data.msgno >> 16
 		opcode = data.msgno & 0xffff
 

@@ -7,7 +7,6 @@
 #include <lualib.h>
 #include <lauxlib.h>
 
-// cc -g -O2 -Wall -I3rd/lua -fPIC --shared lualib-src/lua-bson.c -o luaclib/bson.so -Iskynet-src
 static int _unpack(lua_State *L)
 {
 	uint32_t msgno;
@@ -68,7 +67,7 @@ static const struct luaL_Reg lib[] =
 	{NULL, NULL}
 };
 
-int luaopen_pack_core(lua_State *L) 
+int luaopen_msgpack_core(lua_State *L) 
 {
 	luaL_newlib(L, lib);
 	return 1;

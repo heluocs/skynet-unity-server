@@ -1,7 +1,7 @@
 #!/usr/bin/env lua
-pack = require("pack.core")
+msgpack = require("msgpack.core")
 
 local msgno = 1101
 local msg = "hello skynet"
-x = pack.unpack(pack.pack(msgno, msg))
+x = msgpack.unpack(msgpack.pack(msgno, msg))
 print(x.msgno, x.msg)
