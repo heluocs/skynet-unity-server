@@ -47,6 +47,11 @@ function CMD.start(gate, fd, proto)
 	skynet.call(gate, "lua", "forward", fd)
 end
 
+function CMD.disconnect()
+	print("---a client disconnect")
+	skynet.exit()
+end
+
 skynet.start(function()
 	print("---start agent---")
 	skynet.dispatch("lua", function(_, _, cmd, ...)
