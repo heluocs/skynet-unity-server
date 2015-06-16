@@ -8,30 +8,39 @@ msgpack = require("msgpack.core")
 local CMD = {}
 local protobuf = {}
 
-local function processAccountLoginRequest(msg)
+local function processRoleLoginRequest(msg)
 	print("---process login---")
 	local data = protobuf.decode("CMsgAccountLoginRequest", msg)
 	local account = data.account
 	print("----account:" , account)
 
-	local tb = {}
-	tb.accountid = 1101
+	local roles = {}
 
-	local msgbody =  protobuf.encode("CMsgAccountLoginResponse", tb)
-	return msgpack.pack(message.MSG_ACCOUNT_LOGIN_RESPONSE_S2C, msgbody)
+	local role = {}
+	role.id = 1101
+	role.nickname = "eternal"
+	role.level = 1
+
+	table.insert(roles, role)
+
+	local tb = {}
+	tb.role = roles
+
+	local msgbody =  protobuf.encode("CMsgRoleLoginResponse", tb)
+	return msgpack.pack(message.MSG_ROLE_LOGIN_RESPONSE_S2C, msgbody)
 end
 
-local function processAccountRegistRequest(msg)
+local function processRoleRegistRequest(msg)
 	print("---process regist---")
 	return nil
 end
 
 function CMD.dispatch(opcode, msg)
 	print("login dispatch msgno " .. opcode)
-	if opcode == message.MSG_ACCOUNT_LOGIN_REQUEST_C2S & 0x0000FFFF then
-		return processAccountLoginRequest(msg)
-	elseif opcode == message.MSG_ACCOUNT_REGIST_RESPONSE_C2S & 0x0000FFFF then
-		return processAccountRegistRequest(msg)
+	if opcode == message.MSG_ROLE_LOGIN_REQUEST_C2S & 0x0000FFFF then
+		return processRoleLoginRequest(msg)
+	elseif opcode == message.MSG_ROLE_REGIST_RESPONSE_C2S & 0x0000FFFF then
+		return processRoleRegistRequest(msg)
 	end
 end
 

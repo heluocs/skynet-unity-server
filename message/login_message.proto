@@ -1,30 +1,24 @@
-//MSG_ROLE_LOGIN_REQUEST_C2S
-message CMsgRoleLoginRequest
+//MSG_ACCOUNT_LOGIN_REQUEST_C2S
+message CMsgAccountLoginRequest
 {
-	required string nickname			= 1; 
+	required string account				= 1; 
 }
 
-message RoleInfo
+
+//MSG_ACCOUNT_LOGIN_RESPONSE_S2C
+message CMsgAccountLoginResponse
 {
-	required int64 id					= 1; 
-	required string nickname 			= 2; 
-	required int32 level				= 3; 
+	required int64 accountid			= 1;
 }
 
-//MSG_ROLE_LOGIN_RESPONSE_S2C
-message CMsgRoleLoginResponse
+//MSG_ACCOUNT_REGIST_REQUEST_C2S
+message CMsgAccountRegistRequest
 {
-	repeated RoleInfo role 				= 1;
+	required string account 			= 1;
 }
 
-//MSG_ROLE_REGIST_REQUEST_C2S
-message CMsgRoleRegistRequest
+//MSG_ACCOUNT_REGIST_RESPONSE_S2C
+message CMsgAccountRegistResponse
 {
-	required string nickname			= 1; 
-}
-
-//MSG_ROLE_REGIST_RESPONSE_S2C
-message CMsgRoleRegistResponse
-{
-	required RoleInfo role 				= 1;	
+	required int64 accountid			= 1;
 }
