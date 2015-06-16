@@ -14,8 +14,23 @@ local function processAccountLoginRequest(msg)
 	local account = data.account
 	print("----account:" , account)
 
+	local sql = "select * from tb_account where account = '" .. account .. "'"
+	local ok, result = pcall(skynet.call, "dbserver", "lua", "query", sql)
+
 	local tb = {}
-	tb.accountid = 1101
+	if ok then
+		print(#result)
+		if #result > 0 then
+			for key,value in pairs(result) do
+				tb.accountid = value["id"]
+			end
+		end
+		--[[
+		for k, v in pairs(value) do
+			print(k, v)
+		end
+		]]--
+	end
 
 	local msgbody =  protobuf.encode("CMsgAccountLoginResponse", tb)
 	return msgpack.pack(message.MSG_ACCOUNT_LOGIN_RESPONSE_S2C, msgbody)
