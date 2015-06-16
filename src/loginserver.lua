@@ -38,14 +38,27 @@ end
 
 local function processAccountRegistRequest(msg)
 	print("---process regist---")
-	return nil
+	local data = protobuf.decode("CMsgAccountRegistRequest", msg)
+	local account = data.account
+	print("---account:", account)
+
+	local tb = {}
+	local id = os.time()
+	local sql = "insert into tb_account(id, account) values(".. id ..",'".. account .."')"
+	local ok, result = pcall(skynet.call, "dbserver", "lua", "query", sql)
+	if ok then
+		tb.accountid = id
+	end
+
+	local msgbody = protobuf.encode("CMsgAccountRegistResponse", tb)
+	return msgpack.pack(message.MSG_ACCOUNT_REGIST_RESPONSE_S2C, msgbody)
 end
 
 function CMD.dispatch(opcode, msg)
 	print("login dispatch msgno " .. opcode)
 	if opcode == message.MSG_ACCOUNT_LOGIN_REQUEST_C2S & 0x0000FFFF then
 		return processAccountLoginRequest(msg)
-	elseif opcode == message.MSG_ACCOUNT_REGIST_RESPONSE_C2S & 0x0000FFFF then
+	elseif opcode == message.MSG_ACCOUNT_REGIST_REQUEST_C2S & 0x0000FFFF then
 		return processAccountRegistRequest(msg)
 	end
 end

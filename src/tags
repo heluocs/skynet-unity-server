@@ -1,0 +1,21 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+CMD.close	watchdog.lua	/^function CMD.close(fd)$/;"	f
+CMD.dispatch	loginserver.lua	/^function CMD.dispatch(opcode, msg)$/;"	f
+CMD.query	dbserver.lua	/^function CMD.query(sql)$/;"	f
+CMD.start	agent.lua	/^function CMD.start(gate, fd, proto)$/;"	f
+CMD.start	watchdog.lua	/^function CMD.start(conf)$/;"	f
+SOCKET.close	watchdog.lua	/^function SOCKET.close(fd)$/;"	f
+SOCKET.data	watchdog.lua	/^function SOCKET.data(fd, msg)$/;"	f
+SOCKET.error	watchdog.lua	/^function SOCKET.error(fd, msg)$/;"	f
+SOCKET.open	watchdog.lua	/^function SOCKET.open(fd, addr)$/;"	f
+close_agnet	watchdog.lua	/^local function close_agnet(fd)$/;"	f
+dispatch 	agent.lua	/^	dispatch = function(_, _, msg)$/;"	f
+processAccountLoginRequest	loginserver.lua	/^local function processAccountLoginRequest(msg)$/;"	f
+processAccountRegistRequest	loginserver.lua	/^local function processAccountRegistRequest(msg)$/;"	f
+send_response	agent.lua	/^local function send_response(package)$/;"	f
+unpack 	agent.lua	/^	unpack = function(msg, sz)$/;"	f
