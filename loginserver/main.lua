@@ -5,8 +5,8 @@ local max_client = 64
 skynet.start(function()
 	print("---server start---")
 
-	skynet.newservice("dbserver")
-	skynet.newservice("loginserver")
+	skynet.newservice("dbservice")
+	skynet.newservice("loginservice")
 
 	local watchdog = skynet.newservice("watchdog")
 	skynet.call(watchdog, "lua", "start", {

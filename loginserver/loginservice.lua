@@ -71,10 +71,10 @@ skynet.start(function()
 	end)
 	
 	protobuf = require "protobuf"
-	local login_data = io.open("../message/login_message.pb", "rb")
+	local login_data = io.open("../proto/login_message.pb", "rb")
 	local buffer = login_data:read "*a"
 	login_data:close()
 	protobuf.register(buffer)
 
-	skynet.register "loginserver"
+	skynet.register "loginservice"
 end)

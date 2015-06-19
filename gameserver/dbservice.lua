@@ -29,6 +29,6 @@ skynet.start(function()
 		print("failedi to connect mysql")
 	end
 
-	skynet.register "dbserver"
+	skynet.register "dbservice"
 end)
 		

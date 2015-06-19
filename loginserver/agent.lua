@@ -30,7 +30,7 @@ skynet.register_protocol {
 
 		local ok, result
 		if module == message.MSG_LOGIN_MODULE >> 16 then
-			ok, result = pcall(skynet.call, "loginserver", "lua", "dispatch", opcode, data.msg)
+			ok, result = pcall(skynet.call, "loginservice", "lua", "dispatch", opcode, data.msg)
 			if ok then
 				send_response(result)
 			else

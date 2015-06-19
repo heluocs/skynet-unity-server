@@ -64,17 +64,17 @@ function CMD.dispatch(opcode, msg)
 end
 
 skynet.start(function()
-	print("---start login server---")
+	print("---start game server---")
 	skynet.dispatch("lua", function(session, source, cmd, ...)
 		local f = CMD[cmd]
 		skynet.ret(skynet.pack(f(...)))
 	end)
 	
 	protobuf = require "protobuf"
-	local login_data = io.open("../message/login_message.pb", "rb")
+	local login_data = io.open("../proto/login_message.pb", "rb")
 	local buffer = login_data:read "*a"
 	login_data:close()
 	protobuf.register(buffer)
 
-	skynet.register "loginserver"
+	skynet.register "gameservice"
 end)
