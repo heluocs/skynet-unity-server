@@ -15,7 +15,7 @@ local function processAccountLoginRequest(msg)
 	print("----account:" , account)
 
 	local sql = "select * from tb_account where account = '" .. account .. "'"
-	local ok, result = pcall(skynet.call, "dbserver", "lua", "query", sql)
+	local ok, result = pcall(skynet.call, "dbservice", "lua", "query", sql)
 
 	local tb = {}
 	if ok then
@@ -45,7 +45,7 @@ local function processAccountRegistRequest(msg)
 	local tb = {}
 	local id = os.time()
 	local sql = "insert into tb_account(id, account) values(".. id ..",'".. account .."')"
-	local ok, result = pcall(skynet.call, "dbserver", "lua", "query", sql)
+	local ok, result = pcall(skynet.call, "dbservice", "lua", "query", sql)
 	if ok then
 		tb.accountid = id
 	end
