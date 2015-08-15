@@ -29,5 +29,5 @@ message CMsgRoleCreateRequest
 //MSG_ROLE_CREATE_RESPONSE_S2C
 message CMsgRoleCreateResponse
 {
-	repeated Role roles					= 1;	
+	required Role role					= 1;	
 }

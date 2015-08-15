@@ -14,19 +14,24 @@ local function processRoleListRequest(msg)
 	local accountid = data.accountid
 	print("---account:", accountid)
 
-	local tb = {}
+	local roles = {}
 	local sql = "select * from tb_role where accountid = '" .. accountid .. "'"
 	local ok, result = pcall(skynet.call, "dbservice", "lua", "query", sql)
 	if ok then
 		for key,value in pairs(result) do
-			tb.nickname = value["nickname"]
-			tb.level = value["level"]
-			tb.roletype = value["roletype"]
+			local role = {}
+			role.id = value["id"]
+			role.nickname = value["nickname"]
+			role.level = value["level"]
+			role.roletype = value["roletype"]
+			table.insert(roles, role)
 		end
 	else
 		print("---query error---")
 	end
 
+	local tb = {}
+	tb.roles = roles
 	local msgbody = protobuf.encode("CMsgRoleListResponse", tb)
 	return msgpack.pack(message.MSG_ROLE_LIST_RESPONSE_S2C, msgbody)
 end
@@ -38,6 +43,24 @@ local function processRoleCreateRequest(msg)
 	local nickname = data.nickname
 	local roletype = data.roletype
 	print("---nickname:", nickname)
+
+	local tb = {}
+	local id = os.time()
+	local role = {}
+	local sql = "insert into tb_role(id, accountid, nickname, roletype) values ('"..id.."','"..accountid.."','"..nickname.."','"..roletype.."')"
+	local ok, result = pcall(skynet.call, "dbservice", "lua", "query", sql)
+	if ok then
+		role.id = id
+		role.nickname = nickname
+		role.roletype = roletype
+		role.level = 1
+	else
+		print("---query error---")
+	end
+
+	tb.role = role
+	local msgbody = protobuf.encode("CMsgRoleCreateResponse", tb)
+	return msgpack.pack(message.MSG_ROLE_CREATE_RESPONSE_S2C, msgbody)
 end
 
 function CMD.dispatch(opcode, msg)

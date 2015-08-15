@@ -1,5 +1,5 @@
 
-³
+²
 role_message.proto"(
 CMsgRoleListRequest
 	accountid (	"E
@@ -14,6 +14,6 @@
 CMsgRoleCreateRequest
 	accountid (	
 nickname (	
-roletype (".
-CMsgRoleCreateResponse
-roles (2.Role
+roletype ("-
+CMsgRoleCreateResponse
+role (2.Role
