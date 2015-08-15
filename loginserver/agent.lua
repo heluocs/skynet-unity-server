@@ -36,6 +36,13 @@ skynet.register_protocol {
 			else
 				print("login error")
 			end
+		elseif module == message.MSG_ROLE_MODULE >> 16 then
+			ok, result = pcall(skynet.call, "roleservice", "lua", "dispatch", opcode, data.msg)
+			if ok then
+				send_response(result)
+			else
+				print("role error")
+			end
 		else
 			print("server receive error msg")
 		end

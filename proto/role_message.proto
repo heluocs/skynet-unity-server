@@ -1,7 +1,7 @@
 //MSG_ROLE_LIST_REQUEST_C2S
 message CMsgRoleListRequest
 {
-	required string account				= 1; 
+	required string accountid			= 1; 
 }
 
 message Role
@@ -21,8 +21,9 @@ message CMsgRoleListResponse
 //MSG_ROLE_CREATE_REQUEST_C2S
 message CMsgRoleCreateRequest
 {
-	required string nickname			= 1; 
-	required int32 roletype				= 2;
+	required string accountid			= 1;
+	required string nickname			= 2; 
+	required int32 roletype				= 3;
 }
 
 //MSG_ROLE_CREATE_RESPONSE_S2C

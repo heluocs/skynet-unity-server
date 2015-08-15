@@ -56,43 +56,12 @@ local function processAccountRegistRequest(msg)
 	return msgpack.pack(message.MSG_ACCOUNT_REGIST_RESPONSE_S2C, msgbody)
 end
 
-local function processRoleListRequest(msg)
-	print("---process role list---")
-	local data = protobuf.decode("CMsgRoleListRequest", msg)
-	local account = data.account
-	print("---account:", account)
-
-	local tb = {}
-	local sql = "select * from tb_role where account = '" .. account .. "'"
-	local ok, result = pcall(skynet.call, "dbservice", "lua", "query", sql)
-	if ok then
-		for key,value in pairs(result) do
-			tb.nickname = value["nickname"]
-			tb.level = value["level"]
-			tb.roletype = value["roletype"]
-		end
-	else
-		print("---query error---")
-	end
-
-	local msgbody = protobuf.encode("CMsgRoleListResponse", tb)
-	return msgpack.pack(message.MSG_ROLE_LIST_RESPONSE_S2C, msgbody)
-end
-
-local function processRoleCreateRequest(msg)
-
-end
-
 function CMD.dispatch(opcode, msg)
 	print("login dispatch msgno " .. opcode)
 	if opcode == message.MSG_ACCOUNT_LOGIN_REQUEST_C2S & 0x0000FFFF then
 		return processAccountLoginRequest(msg)
 	elseif opcode == message.MSG_ACCOUNT_REGIST_REQUEST_C2S & 0x0000FFFF then
 		return processAccountRegistRequest(msg)
-	elseif opcode == message.MSG_ROLE_LIST_REQUEST_C2S & 0x0000FFFF then
-		return processRoleListResponse(msg)	
-	elseif opcode == message.MSG_ROLE_CREATE_REQUEST_C2S & 0x0000FFFF then
-		return processRoleCreateResponse(msg)
 	end
 end
 

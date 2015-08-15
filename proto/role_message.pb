@@ -1,8 +1,8 @@
 
-ž
-role_message.proto"&
-CMsgRoleListRequest
-account (	"E
+³
+role_message.proto"(
+CMsgRoleListRequest
+	accountid (	"E
 Role
 
 id (
@@ -10,9 +10,10 @@
 level (
 roletype (",
 CMsgRoleListResponse
-roles (2.Role";
-CMsgRoleCreateRequest
-nickname (	
-roletype (".
+roles (2.Role"N
+CMsgRoleCreateRequest
+	accountid (	
+nickname (	
+roletype (".
 CMsgRoleCreateResponse
 roles (2.Role

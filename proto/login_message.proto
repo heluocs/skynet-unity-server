@@ -22,3 +22,4 @@ message CMsgAccountRegistResponse
 {
 	required int64 accountid			= 1;
 }
+

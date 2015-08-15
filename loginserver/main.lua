@@ -7,6 +7,7 @@ skynet.start(function()
 
 	skynet.newservice("dbservice")
 	skynet.newservice("loginservice")
+	skynet.newservice("roleservice")
 
 	local watchdog = skynet.newservice("watchdog")
 	skynet.call(watchdog, "lua", "start", {
